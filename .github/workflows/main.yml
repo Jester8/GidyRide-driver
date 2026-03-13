@@ -1,6 +1,9 @@
 name: Mac Session
 on: workflow_dispatch
 
+permissions:
+  contents: write
+
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -11,6 +14,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Start interactive SSH session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 55
+      - name: Build and Export IPA
+        run: |
+          cd gidyride-driver
+          npm install
+          npx expo prebuild --platform ios
+          xcodebuild \
+            -workspace ios/GidyRidedriver.xcworkspace \
+            -scheme GidyRidedriver \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath ~/build/GidyRidedriver.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+          mkdir -p ~/build/ipa/Payload
+          cp -r ~/build/GidyRidedriver.xcarchive/Products/Applications/GidyRidedriver.app ~/build/ipa/Payload/
+          cd ~/build/ipa
+          zip -r GidyRidedriver.ipa Payload/
+
+      - name: Upload IPA as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GidyRidedriver
+          path: ~/build/ipa/GidyRidedriver.ipa
