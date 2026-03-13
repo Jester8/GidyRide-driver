@@ -1,24 +1,16 @@
 name: Mac Session
 on: workflow_dispatch
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   mac-session:
     runs-on: macos-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Install Expo tools
-        run: npm install -g expo-cli
-        
+
       - name: Start interactive SSH session
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 55
