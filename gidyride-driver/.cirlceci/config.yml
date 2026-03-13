@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  build-ios:
+    macos:
+      xcode: 15.3.0
+    steps:
+      - checkout
+      
+      - run:
+          name: Install Node
+          command: |
+            brew install node
+            
+      - run:
+          name: Install dependencies
+          command: npm install
+          
+      - run:
+          name: Install Expo CLI
+          command: npm install -g expo-cli eas-cli
+          
+      - run:
+          name: Build iOS
+          command: |
+            npx expo prebuild --platform ios
+            cd ios
+            xcodebuild -workspace YourApp.xcworkspace \
+              -scheme YourApp \
+              -configuration Release \
+              -sdk iphoneos \
+              -archivePath build/GidyRideDriver.xcarchive \
+              archive
+              
+      - store_artifacts:
+          path: ios/build
+          destination: ios-build

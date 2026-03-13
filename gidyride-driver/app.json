@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "GidyRide driver",
+    "slug": "gidyride-driver",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyAUmK_VEFcoDhYRRy6hrWwvEcW75zv0tfU"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "GidyRide needs your location to show your position on the map.",
+        "NSLocationAlwaysUsageDescription": "GidyRide needs your location to track your trip.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "GidyRide needs your location while driving.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "bundleIdentifier": "com.kalex231.gidyridedriver"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/icon.png",
+        "backgroundImage": "./assets/icon.png",
+        "monochromeImage": "./assets/icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kalex231.gidyridedriver",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAUmK_VEFcoDhYRRy6hrWwvEcW75zv0tfU"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-font",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "GidyRide needs your location to track your trip.",
+          "locationAlwaysPermission": "GidyRide needs your location while driving.",
+          "locationWhenInUsePermission": "GidyRide needs your location to show your position on the map."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "363d127a-7fd7-4b09-9a51-3e95693f23e9"
+      }
+    }
+  }
+}
